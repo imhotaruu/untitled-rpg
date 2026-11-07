@@ -9,8 +9,9 @@ import { normalizeCrafting } from "./craftingSystem";
 import { normalizeNarrative } from "./prologueSystem";
 import { normalizeConversation } from "./conversationSystem";
 import { normalizeJournal } from "./journalSystem";
+import { normalizeLocationUnlocks } from "./locationSystem";
 
-export const CURRENT_SAVE_VERSION = 17;
+export const CURRENT_SAVE_VERSION = 18;
 
 function isPlainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -101,6 +102,7 @@ export function migrateSaveState(savedState) {
   migratedState.exploration = normalizeExploration(migratedState.exploration, migratedState.player.area, Boolean(migratedState.combat));
   migratedState.conversation = normalizeConversation(savedState.conversation, migratedState);
   migratedState.journal = normalizeJournal(savedState.journal, migratedState, savedState.journal == null);
+  normalizeLocationUnlocks(migratedState);
   if (migratedState.conversation) migratedState.player.isResting = false;
   if (migratedState.exploration.pending) migratedState.player.isResting = false;
   if (migratedState.combat) migratedState.player.isResting = false;

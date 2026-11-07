@@ -29,7 +29,8 @@ The production build is written to `dist/`. Dependencies and build output are no
 - [Prologue script](docs/story/prologue-v2.md)
 - [Feature 36 QA](docs/qa/feature-000036-battle-info.md)
 - [Feature 37 Codex journal QA](docs/qa/feature-000037-codex-journal.md)
+- [Feature 38 location unlocks QA](docs/qa/feature-000038-location-unlocks.md)
 
-This repository starts with one fresh snapshot of the game through Feature 36. Earlier Git history remains in [the original repository](https://github.com/imhotaruu/untitled-game). Feature 37 adds a Codex journal of first resource discoveries and useful NPC conversation notes. Location unlocks are the planned next feature, followed later by a draggable, zoomable Story timeline.
+This repository starts with one fresh snapshot of the game through Feature 36. Earlier Git history remains in [the original repository](https://github.com/imhotaruu/untitled-game). Feature 37 adds a Codex journal of first resource discoveries and useful NPC conversation notes. Feature 38 distinguishes hearing about locations from discovering routes and being able to travel there. A draggable, zoomable Story timeline remains a later feature.
 
 Saves and preferences live in browser storage, not Git. Continuing on the same browser origin preserves them; changing the site's origin does not transfer browser storage automatically. Portraits are CSS placeholders while artwork and audio are pending.

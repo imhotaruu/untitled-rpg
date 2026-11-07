@@ -57,6 +57,7 @@ export function createGameState() {
 
     unlocks: {
       areas: createInitialUnlockMap(areas, "discovered"),
+      heardAreas: {},
       actions: createInitialUnlockMap(actions, "unlocked"),
       systems: {},
       completedActions: {},

@@ -19,10 +19,7 @@ function recoverStat(player, stat, maxStat, regenStat, deltaSeconds) {
 }
 
 function isRecoveryComplete(player) {
-  return (
-    player.hp >= player.maxHp - 0.001 &&
-    player.stamina >= player.maxStamina - 0.001
-  );
+  return player.stamina >= player.maxStamina - 0.001;
 }
 
 export function processGameTick(currentState, deltaSeconds) {
@@ -35,17 +32,15 @@ export function processGameTick(currentState, deltaSeconds) {
   const nextState = clone(currentState);
   const player = nextState.player;
 
-  recoverStat(player, "hp", "maxHp", "hpRegen", deltaSeconds);
   recoverStat(player, "stamina", "maxStamina", "staminaRegen", deltaSeconds);
 
   if (isRecoveryComplete(player)) {
-    player.hp = player.maxHp;
     player.stamina = player.maxStamina;
     player.isResting = false;
 
     nextState.actionLog = addLog(
       nextState.actionLog,
-      "You are fully rested."
+      "Your stamina is fully restored."
     );
   }
 

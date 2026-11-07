@@ -4,7 +4,7 @@ export const defaultPlayer = {
   level: 1,
   path: "None",
 
-  area: "village_square",
+  area: "stonefield_house",
   day: "Day 1 · Morning",
 
   hp: 10,

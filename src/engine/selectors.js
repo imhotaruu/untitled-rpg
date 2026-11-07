@@ -14,34 +14,6 @@ export function getDiscoveredResources(resources) {
   );
 }
 
-export function getDiscoveredAreas(areas, unlocks) {
-  return areas.filter((area) => {
-    if (area.discovered !== false) return true;
-
-    return Boolean(unlocks?.areas?.[area.id]);
-  });
-}
-
-export function getDiscoveredAreaGroups(areas, unlocks) {
-  const discoveredAreas = getDiscoveredAreas(areas, unlocks);
-  const groups = {};
-
-  discoveredAreas.forEach((area) => {
-    const category = area.category || "Other";
-
-    if (!groups[category]) {
-      groups[category] = [];
-    }
-
-    groups[category].push(area);
-  });
-
-  return Object.entries(groups).map(([category, areas]) => ({
-    category,
-    areas,
-  }));
-}
-
 function isActionUnlocked(action, unlocks) {
   return action.unlocked !== false || Boolean(unlocks?.actions?.[action.id]);
 }

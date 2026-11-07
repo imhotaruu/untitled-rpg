@@ -19,6 +19,12 @@ const { purchaseUpgrade } = await import("../src/engine/upgradeSystem.js");
 const { migrateSaveState, migrateSaveRecord } = await import("../src/engine/saveMigration.js");
 const { saveGameToSlot, loadGameFromSlot, getSaveSlotSummaries } = await import("../src/engine/saveSystem.js");
 
+function withoutLocationPresentation(state) {
+  return { ...state, journal: null,
+    actionLog: state.actionLog.filter((entry) => typeof entry !== "string" || !entry.startsWith("Route discovered:")),
+    unlocks: { ...state.unlocks, areas: {}, heardAreas: {},
+      completedRules: state.unlocks.completedRules.filter((id) => !["unlock_village_square", "unlock_healers_hut", "unlock_forest_edge"].includes(id)) } };
+}
 const action = (id) => actions.find((entry) => entry.id === id);
 const open = (state, id) => performConversationAction(state, action(id));
 const finish = (state) => finishConversation(state, state.conversation?.token);
@@ -53,7 +59,10 @@ test("Garron's first lesson has named speakers and preserves the original action
   assert.equal(dialogue.person.role, "Your father");
   assert.deepEqual(new Set(dialogue.beats.map((beat) => beat.speaker)), new Set(["Narration", "Garron", "Aster"]));
   const finished = finish(state);
-  assert.deepEqual({ ...finished, journal: original.journal }, original, "dialogue only adds a journal note to the settled action");
+  assert.deepEqual(withoutLocationPresentation(finished), withoutLocationPresentation(original), "dialogue preserves settled action rewards");
+  assert.equal(finished.unlocks.areas.village_square, true);
+  assert.equal(finished.unlocks.areas.healers_hut, true);
+  assert.equal(finished.unlocks.areas.forest_edge, undefined);
   assert.ok(finished.journal.entries.some((entry) => entry.id === "note:garron_footing"));
 });
 
@@ -115,7 +124,11 @@ test("Rowan's introduction, favor, acceptance, and completion keep costs and que
     const pending = open(state, id);
     assert.equal(getPendingConversation(pending).person.name, "Rowan");
     state = finish(pending);
-    assert.deepEqual({ ...state, journal: original.journal }, original, "journal notes do not change action outcomes");
+    assert.deepEqual(withoutLocationPresentation(state), withoutLocationPresentation(original),
+      "conversation location reveals do not change costs or rewards");
+    assert.equal(state.unlocks.areas.forest_edge, true);
+    assert.equal(state.unlocks.heardAreas.forest_trail, true);
+    assert.equal(state.unlocks.areas.forest_trail, undefined);
   }
   assert.equal(state.resources.wood.amount, 4);
   assert.equal(state.resources.cloth.amount, 1);

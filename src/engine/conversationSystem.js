@@ -4,6 +4,7 @@ import { villagePeople } from "../data/relationships";
 import { performAction } from "./actionSystem";
 import { getPrependedStoryCount } from "../utils/storyHistory";
 import { recordConversationNotes } from "./journalSystem";
+import { processLocationUnlocks } from "./locationSystem";
 
 function selectPassages(before, after, actionId) {
   const firstUse = !before.progress.actionCounts[actionId];
@@ -72,7 +73,9 @@ export function finishConversation(state, token) {
   const pending = normalizeConversation(state.conversation, state);
   if (!pending || pending.token !== token) return state;
   const next = { ...state, journal: structuredClone(state.journal || { entries: [] }),
+    unlocks: structuredClone(state.unlocks),
     conversation: null, storyLog: [...pending.storyEntries, ...state.storyLog].slice(0, 50) };
   recordConversationNotes(next, pending.passageIds);
+  processLocationUnlocks(next);
   return next;
 }

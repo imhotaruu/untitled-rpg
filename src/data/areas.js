@@ -12,7 +12,11 @@ export const areas = [
     label: "Village Square",
     category: "Village",
     description: "The quiet heart of the village.",
-    discovered: true,
+    discovered: false,
+    progression: {
+      discoverWhen: { type: "conversation", noteId: "garron_footing" },
+      discoveryRuleId: "unlock_village_square",
+    },
   },
 
   {
@@ -20,7 +24,11 @@ export const areas = [
     label: "Healer's Hut",
     category: "Village",
     description: "A warm hut filled with herbs, remedies, and gentle care.",
-    discovered: true,
+    discovered: false,
+    progression: {
+      discoverWhen: { type: "conversation", noteId: "garron_footing" },
+      discoveryRuleId: "unlock_healers_hut",
+    },
   },
 
   {
@@ -28,7 +36,11 @@ export const areas = [
     label: "Forest Edge",
     category: "Forest",
     description: "A calm but mysterious path leading toward the woods.",
-    discovered: true,
+    discovered: false,
+    progression: {
+      discoverWhen: { type: "conversation", noteId: "rowan_wood" },
+      discoveryRuleId: "unlock_forest_edge",
+    },
   },
 
   {
@@ -38,5 +50,11 @@ export const areas = [
     description:
       "A narrow path deeper into the woods. The air feels cooler here, and the village begins to feel distant.",
     discovered: false,
+    progression: {
+      heardWhen: { type: "conversation", noteId: "rowan_wood" },
+      heardHint: "Rowan mentioned a trail beyond the forest edge. You haven't found the way yet.",
+      discoverWhen: { type: "action", id: "explore_forest_edge", count: 3 },
+      discoveryRuleId: "unlock_forest_trail",
+    },
   },
 ];

@@ -105,9 +105,15 @@ Working branch: `codex/feature-000037-codex-journal`, based on the fresh `imhota
 
 Validation: build, lint, and all 170 tests pass. Server-render checks cover empty, discovered, completed/pending conversation, and older-save states. The user accepted the final book layout and authorized commit/push on 2026-11-08. Individual manual checklist items are not all separately confirmed. See `docs/qa/feature-000037-codex-journal.md`.
 
-## Planned follow-up: Feature 38 — Location unlocks
+## In progress: Feature 38 — Location unlocks
 
-The user moved a proper location unlock system ahead of the Story timeline while doing Feature 37 QA. Scope it after the journal is accepted: distinguish hearing about a place, discovering the route, and gaining access; support exploration, conversation, quest, and story requirements. Codex hints should record knowledge without automatically granting travel. Preserve existing location/save progress. No location engine changes are included in Feature 37.
+The user authorized starting this feature after accepting Feature 37. Working branch: `codex/feature-000038-location-unlocks`, based on `f04cd81`.
+
+Locations now share a knowledge/access engine. Fresh journeys begin with Stonefield House only. Finishing Garron's first lesson reveals Village Square and Healer's Hut; finishing Rowan's introduction opens Forest Edge. Other unknown places stay hidden; Rowan's completed introduction reveals Forest Trail as Heard about, with its existing clue recorded in Codex. Three successful Forest Edge explorations permanently discover the route, independently of the hint. No counters, new places, or additional quest gates are introduced. Travel rejects undiscovered/unknown destinations and waits for pending encounters, conversations, or combat to finish. Stonefield House stays first in Village. Added family conversation guidance explains the recovery split: home restores stamina only; Elira treats HP at the hut. Her visit is optional, not an additional gate.
+
+The user also authorized a small combat presentation addition: lowered party cards briefly reveal the affected vital when HP, stamina, or mana decreases. Bars drain after the lift, then waiting cards tuck away again. The effect uses actual per-member snapshots and respects reduced motion; no new drain mechanics are added.
+
+Area definitions support action, conversation-note, story-event, quest-status, and combined requirements for hearing about a place, discovering it, and separately gaining access. Save schema 18 retains established routes and heard-about knowledge; migration preserves old flags, visits, current locations, and existing progress without replaying discovery logs. The user confirmed that the feature is working flawlessly and authorized commit/push on 2026-11-08. All 189 tests, lint, and build pass. See `docs/qa/feature-000038-location-unlocks.md`.
 
 The draggable, zoomable Story timeline remains a later feature, with its content and progression presentation to be scoped then. Achievements may also be a separate future feature.
 

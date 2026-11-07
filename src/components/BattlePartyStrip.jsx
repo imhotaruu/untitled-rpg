@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import StatMeter from "./ui/StatMeter";
 import useHitReaction from "./useHitReaction";
+import usePartyVitalFeedback from "./usePartyVitalFeedback";
 
 export default function BattlePartyStrip({ members, activeMemberId, finished, onProfile, busy = false, frame = null, reducedMotion = false }) {
   return <section className="battle-party" aria-label="Party status">
@@ -34,6 +35,8 @@ function PartyPortrait({ member, active, finished, onProfile, busy, cue, reduced
     observer.observe(overview);
     return () => observer.disconnect();
   }, []);
+
+  usePartyVitalFeedback(cardRef, member, active, finished, reducedMotion);
 
   return <article ref={cardRef} className="battle-party-card" data-active={active} data-waiting={!active && !finished}>
       <div ref={overviewRef} className="party-card-overview">

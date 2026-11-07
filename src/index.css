@@ -400,6 +400,23 @@ button.primary {
   transform: none;
 }
 
+.location-rumor {
+  padding: 10px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+}
+
+.location-rumor > span { display: block; font-weight: 600; }
+.location-rumor > small { display: block; color: #d6b96e; margin-top: 3px; }
+.location-rumor p, .location-access-note {
+  display: block;
+  margin: 6px 0 0;
+  color: var(--text-sub);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  font-weight: normal;
+}
+
 /* ─── Scene panel ───────────────────────────────────────── */
 
 .scene-panel {
@@ -1113,6 +1130,7 @@ button.primary {
   transition: transform 260ms ease-out, border-color 180ms ease-out;
 }
 .battle-party-card[data-waiting="true"] { transform: translateY(var(--party-card-recess, 0px)); }
+.battle-party-card[data-waiting="true"][data-revealing-vitals="true"] { transform: translateY(var(--party-card-feedback-recess, 0px)); }
 .battle-party-card[data-waiting="true"]:has(.party-portrait:focus-visible:not(:disabled)) { transform: translateY(0); }
 .battle-party-strip[data-reduced-motion="true"] .battle-party-card { transition: none; }
 
@@ -1191,6 +1209,9 @@ button.primary {
 .battle-party-card .stat-track {
   height: 3px;
 }
+
+/* Party losses are timed after the card reveal by usePartyVitalFeedback. */
+.battle-party-card .stat-fill { transition: none; }
 
 .battle-command-guide {
   align-self: center;

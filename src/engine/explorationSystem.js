@@ -1,6 +1,7 @@
 import { explorationActionIds, explorationEncounters, explorationEncounterRates } from "../data/explorationEncounters";
 import { addResources } from "./resourceSystem";
 import { recordResourceDiscoveries } from "./journalSystem";
+import { processLocationUnlocks } from "./locationSystem";
 
 const count = (value) => Number.isSafeInteger(value) && value >= 0 ? value : 0;
 const definitionFor = (id) => explorationEncounters.find((entry) => entry.id === id);
@@ -62,5 +63,6 @@ export function resolveExplorationEncounter(state, token, choiceId) {
   next.storyLog = [choice.text, ...next.storyLog].slice(0, 50);
   const rewards = Object.entries(choice.rewards || {}).map(([id, amount]) => `+${amount} ${next.resources[id].label}`);
   next.actionLog = [{ type: "story", message: `${encounter.title}: ${choice.label}.${rewards.length ? ` ${rewards.join(", ")}.` : ""}` }, ...next.actionLog].slice(0, 50);
+  processLocationUnlocks(next);
   return next;
 }

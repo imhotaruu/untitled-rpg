@@ -33,7 +33,7 @@ function ActionDetails({ action, resources, id, gatheringMastery }) {
       )}
 
       {action.startsResting && (
-        <p>Effect: Recover health and stamina over time.</p>
+        <p>Effect: Recover stamina over time. Visit Elira at the healer's hut for wounds.</p>
       )}
 
       {hasStatCost && (

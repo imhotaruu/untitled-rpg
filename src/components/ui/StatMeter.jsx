@@ -8,7 +8,7 @@ function StatMeter({ label, value, max, type }) {
   const displayMax = formatStatValue(max, "max");
 
   return (
-    <div className="stat-meter">
+    <div className="stat-meter" data-stat-type={type}>
       <div className="stat-meter-top">
         <span>{label}</span>
         <strong>

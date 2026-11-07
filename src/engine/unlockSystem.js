@@ -1,5 +1,6 @@
 import { hasTrainedWithGarron, villagePeople } from "../data/relationships";
 import { getQuestStatus } from "./questSystem";
+import { processLocationUnlocks } from "./locationSystem";
 
 export const unlockRules = [
   {
@@ -34,15 +35,6 @@ export const unlockRules = [
     log: { type: "unlock", message: "Garron has training armor for you. Collect it at Stonefield House." },
   },
   {
-    id: "unlock_forest_trail",
-    type: "area",
-    targetId: "forest_trail",
-    condition: (state) =>
-      (state.progress.actionCounts.explore_forest_edge || 0) >= 3,
-    log: "New area unlocked: Forest Trail.",
-  },
-
-  {
     id: "unlock_forage_carefully",
     type: "action",
     targetId: "forage_carefully",
@@ -56,6 +48,7 @@ function addLog(logList, message) {
 }
 
 export function processUnlocks(state) {
+  processLocationUnlocks(state);
   unlockRules.forEach((rule) => {
     if (state.unlocks.completedRules.includes(rule.id)) return;
     if (!rule.condition(state)) return;

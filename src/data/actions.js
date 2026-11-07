@@ -79,7 +79,7 @@ export const actions = [
     },
     log: "You train with Garron.",
     story:
-      "Garron walks you through the basics, then hands you a wooden training sword.",
+      "Garron walks you through the basics, then hands you a wooden training sword. He points you toward Rowan at the village square and Elira at the healer's hut. When you are tired, home is a place to rest.",
   },
 
   {

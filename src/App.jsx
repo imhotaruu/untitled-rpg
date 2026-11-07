@@ -20,6 +20,7 @@ import { recipes } from "./data/recipes";
 import { getPendingExploration, resolveExplorationEncounter } from "./engine/explorationSystem";
 import { dismissCombat, performCombatMove } from "./engine/combatSystem";
 import { moveToArea } from "./engine/areaSystem";
+import { getKnownLocationGroups } from "./engine/locationSystem";
 import { equipItem, unequipSlot } from "./engine/equipmentSystem";
 import { consumeInventoryItem } from "./engine/itemSystem";
 import { createItemFeedback } from "./utils/itemFeedback";
@@ -31,7 +32,6 @@ import {
   getAvailableActions,
   getAreaById,
   getAreaLabel,
-  getDiscoveredAreaGroups,
   getDiscoveredResources,
 } from "./engine/selectors";
 import {
@@ -137,7 +137,7 @@ function App() {
 
   const currentArea = getAreaById(areas, player.area);
   const currentAreaLabel = getAreaLabel(areas, player.area);
-  const discoveredAreaGroups = getDiscoveredAreaGroups(areas, unlocks);
+  const knownLocationGroups = getKnownLocationGroups(gameState);
   const availableActions = getAvailableActions(actions, player.area, unlocks);
   const discoveredResources = getDiscoveredResources(resources);
 
@@ -504,7 +504,7 @@ function App() {
               storyLog={storyLog}
               currentArea={currentArea}
               currentAreaLabel={currentAreaLabel}
-              discoveredAreaGroups={discoveredAreaGroups}
+              knownLocationGroups={knownLocationGroups}
               availableActions={availableActions}
               onMoveToArea={handleMoveToArea}
               onAction={handleAction}

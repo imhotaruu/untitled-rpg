@@ -58,29 +58,17 @@ function isBelowMax(value, max) {
 }
 
 function isFullyRested(player) {
-  return (
-    !isBelowMax(player.hp, player.maxHp) &&
-    !isBelowMax(player.stamina, player.maxStamina)
-  );
+  return !isBelowMax(player.stamina, player.maxStamina);
 }
 
 function getRestStartMessage(player) {
-  const needsHealth = isBelowMax(player.hp, player.maxHp);
   const needsStamina = isBelowMax(player.stamina, player.maxStamina);
-
-  if (needsHealth && needsStamina) {
-    return "You settle in and begin recovering health and stamina.";
-  }
-
-  if (needsHealth) {
-    return "You settle in and begin recovering health.";
-  }
 
   if (needsStamina) {
     return "You settle in and begin recovering stamina.";
   }
 
-  return "You are already fully rested.";
+  return "Your stamina is already full.";
 }
 
 function getActionCosts(action) {

@@ -7,7 +7,7 @@ import ExplorationEncounter from "./ExplorationEncounter";
 
 export default function MainPage({
   player, resources, actionLog, storyLog, currentArea, currentAreaLabel,
-  discoveredAreaGroups, availableActions, onMoveToArea, onAction,
+  knownLocationGroups, availableActions, onMoveToArea, onAction,
   focusActionId, gatheringMastery, explorationEncounter, onEncounterChoice,
 }) {
   const [historyRevision, setHistoryRevision] = useState(0);
@@ -25,21 +25,27 @@ export default function MainPage({
   return <>
     <Panel title="Locations" className="locations-panel">
       <nav className="area-group-list" aria-label="Travel locations">
-        {discoveredAreaGroups.map((group) => (
+        {knownLocationGroups.map((group) => (
           <div key={group.category} className="area-group">
             <h3>{group.category}</h3>
             <div className="button-list area-button-list">
               {group.areas.map((area) => (
+                area.knowledge === "heard" ? <div key={area.id} className="location-rumor">
+                  <span>{area.label}</span>
+                  <small>Heard about</small>
+                  <p>{area.reason}</p>
+                </div> :
                 <button key={area.id} type="button"
                   className={area.id === player.area ? "primary" : ""}
                   aria-current={area.id === player.area ? "location" : undefined}
-                  disabled={Boolean(explorationEncounter)}
-                  title={explorationEncounter ? "Choose an encounter response before traveling." : undefined}
+                  disabled={!area.canTravel}
+                  title={area.reason || undefined}
                   onClick={() => {
                     showActionHistory();
                     onMoveToArea(area);
                   }}>
                   {area.label}
+                  {!area.canTravel && !explorationEncounter && <small className="location-access-note">{area.reason}</small>}
                 </button>
               ))}
             </div>

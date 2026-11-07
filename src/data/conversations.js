@@ -13,6 +13,8 @@ export const conversations = {
     line("player", "Like this?"),
     narration("Garron adjusts your stance and walks you through the basic movements. Only when your feet are settled does he place the sword in your hands."),
     line("Garron", "There. Take your time getting used to its weight. We can practice the forms together."),
+    line("Garron", `When you're ready for a change of pace, head to the village square. ${rowan} made that sword; they'd be glad to meet you.`),
+    line("Garron", "Your mother's working at the healer's hut, too. Let her look at any scrapes. If you're simply worn out, come home and rest."),
   ]),
   garron_practice: scene("garron", "practice_with_garron", [
     narration("You follow the forms your father showed you, slowly getting used to the weight of the training sword."),
@@ -36,6 +38,9 @@ export const conversations = {
     line("Elira", "There you are. Come in, love. How are you getting on?"),
     line("player", "I thought I'd stop by."),
     line("Elira", "You never need an excuse to see me."),
+    line("Elira", "Has your father had you practicing already? Let me see those hands. Come to me if you're hurt; that's what this little hut is for."),
+    line("player", "And if I'm just tired?"),
+    line("Elira", "Then go home and put your feet up. A little rest will bring your strength back. You don't have to do everything in one day."),
   ]),
   elira_care: scene("elira", "visit_healer", [
     narration("Elira makes a place for you to sit and tends carefully to your wounds."),
@@ -51,6 +56,7 @@ export const conversations = {
     line(rowan, `One of mine. I'm ${rowan}. Garron brings them back with more dents than I thought wood could hold.`),
     line("player", "I'm learning to use one myself."),
     narration("Their smile softens as they turn a split offcut in their hands."),
+    line(rowan, "The path out of the village leads to the forest edge. Stay where you feel comfortable; you'll find your bearings in time."),
     line(rowan, "If you find sound fallen wood along the forest trail, I could use a small bundle. Six pieces would do. No hurry—the woods aren't going anywhere."),
   ]),
   rowan_wood: scene("rowan", "bring_rowan_wood", [

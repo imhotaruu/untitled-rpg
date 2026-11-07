@@ -136,7 +136,7 @@ test("slot saves preserve journal provenance and pending hints independently", (
     const gathered = performAction(forest(), action("explore_forest_edge"));
     const pending = open(home(), "train_with_garron");
     saveGameToSlot(1, gathered); saveGameToSlot(2, pending);
-    assert.equal(JSON.parse(storage.get("new-untitled-game-save-slot-1")).version, 17);
+    assert.equal(JSON.parse(storage.get("new-untitled-game-save-slot-1")).version, 18);
     assert.deepEqual(loadGameFromSlot(1).journal, gathered.journal);
     const loaded = loadGameFromSlot(2);
     assert.equal(loaded.journal.entries.length, 0);

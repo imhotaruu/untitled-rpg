@@ -286,6 +286,8 @@ test("feedback at the final rank reports the last gain, and repeated or blocked 
 
 test("wood gathering is reachable through forest discovery, spends stamina, and narrates only once", () => {
   let state = createGameState();
+  // This test starts after the opening conversations; their gates have dedicated tests.
+  state.unlocks.areas.forest_edge = true;
   state = moveToArea(state, areas.find((area) => area.id === "forest_edge"));
   assert.equal(getAvailableActions(actions, state.player.area, state.unlocks).some((entry) => entry.id === "gather_wood"), false);
   const wrongArea = performAction(state, action("gather_wood"));
