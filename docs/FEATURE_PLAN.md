@@ -91,16 +91,32 @@ Working branch: `codex/feature-000036-battle-info`, based on Feature 35 (`7a46d6
 - Inspection is read-only and available between turns. Native dialog focus/Escape behavior and Battle Log remain intact. The roster can render supplied party members; this feature does not implement additional playable party members, affinities, weaknesses, scan abilities, or new combat mechanics.
 - The user accepted the visual result and authorized commit/push on 2026-11-08. Build, lint, and all 158 automated tests pass. QA: `docs/qa/feature-000036-battle-info.md`.
 
-## Next: Feature 37 — Scope to be selected
+## Completed: Feature 37 — Codex journal
 
-Before starting the next gameplay feature, the user wants to move the current game to another repository under imhotaruu because the old repository still lists the school account as a contributor. The user selected a public repository with one fresh commit of the current game and a completed-features Markdown summary. The proposed repository name is `untitled-rpg`. The old repository and its history are retained; this repository begins with a fresh snapshot through Feature 36. See `docs/COMPLETED_FEATURES.md`. Feature 37's gameplay scope has not been selected.
+Working branch: `codex/feature-000037-codex-journal`, based on the fresh `imhotaruu/untitled-rpg` main snapshot (`198a982`). The user selected a journal that remembers discoveries and useful NPC conversation hints. Achievements are a separate possible system, not this page's purpose.
+
+- Codex unlocks after the first resource acquisition or completed conversation note, using the existing tab-reveal behavior. It fills the secondary page and retains Back to Main, Log, Settings, and save controls.
+- Resources records the first actual acquisition's location, displayed game day, and source action/encounter. Repeated collection, spending, and capped log history never replace that first record. Receiving cloth from Rowan and finding cloth in a cache have distinct origins.
+- Conversations records short notes from existing Garron, Elira, and Rowan passages after the dialogue finishes. Rowan's forest-trail hint can be remembered before discovering the trail, but it neither unlocks that location nor marks Wood as personally found. Notes have no rewards, completion scores, or hidden-entry silhouettes.
+- Search and All notes / Resources / Conversations filters only expose recorded entries. The final requested presentation restores the original open-book layout: Contents, categories, search, and the entry list inside the left page; selected prose and provenance together inside the right page, with Previous/Next below it. Keep the dark cover, warm pages, center fold, compact header without Your journal, and accepted centered width (94%, capped at 1560px). Pages stack on narrow screens. No external bookmark rail or separate provenance page remains. No new lore or quest steps are invented.
+- Save schema 17 stores the journal independently of the two capped logs. Earlier saves recover supported knowledge from resource discovery and action/progress records, with original locations/dates explicitly unrecorded. In-progress conversation hints stay hidden until completion. Prologue/replay state does not seed the adventure journal.
+- Unread notes show an exclamation marker on the main Codex button and matching category buttons, New badges in the entry list, and a Newly recorded label on the opened note. Opening Codex starts at the first unread note; displaying a note marks only it read, while Newly recorded remains visible for notes that were unread when this visit began. Search/category/Previous/Next navigation marks only the displayed entry. Read flags persist per save slot; old entries without a flag start unread once.
+- Existing milestone metadata is retained for future use; no achievement UI or completion checklist is added.
+
+Validation: build, lint, and all 170 tests pass. Server-render checks cover empty, discovered, completed/pending conversation, and older-save states. The user accepted the final book layout and authorized commit/push on 2026-11-08. Individual manual checklist items are not all separately confirmed. See `docs/qa/feature-000037-codex-journal.md`.
+
+## Planned follow-up: Feature 38 — Location unlocks
+
+The user moved a proper location unlock system ahead of the Story timeline while doing Feature 37 QA. Scope it after the journal is accepted: distinguish hearing about a place, discovering the route, and gaining access; support exploration, conversation, quest, and story requirements. Codex hints should record knowledge without automatically granting travel. Preserve existing location/save progress. No location engine changes are included in Feature 37.
+
+The draggable, zoomable Story timeline remains a later feature, with its content and progression presentation to be scoped then. Achievements may also be a separate future feature.
 
 ## Later ideas
 
 - More recipes, crafting depth, and additional village characters.
 - Further encounters and combat encounters.
 - Further story writing and expansion of the interactive prologue.
-- Expanded party, relationship progression, and Codex pages.
+- Expanded party and relationship progression; additional journal content and a separate achievement system if requested.
 
 These are backlog ideas, not promises for Feature 33 or a fixed order of work.
 

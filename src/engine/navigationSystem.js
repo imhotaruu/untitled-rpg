@@ -1,6 +1,7 @@
 import { hasTrainedWithGarron, hasMetRowan } from "../data/relationships";
 import { quests } from "../data/quests";
 import { getQuestStatus, isCraftingUnlocked } from "./questSystem";
+import { getUnreadJournalCount } from "./journalSystem";
 
 const pages = [
   { id: "main", label: "Main" },
@@ -9,6 +10,7 @@ const pages = [
   { id: "relationships", label: "Relationships" },
   { id: "quests", label: "Quests" },
   { id: "crafting", label: "Crafting" },
+  { id: "codex", label: "Codex" },
 ];
 
 // Derive access from existing progress, so old saves need no new unlock flags.
@@ -22,5 +24,7 @@ export function getAvailablePages(state) {
   if (familyInteraction || hasMetRowan(state) || knownQuest || crafting) unlocked.add("relationships");
   if (knownQuest) unlocked.add("quests");
   if (crafting) unlocked.add("crafting");
-  return pages.filter((page) => unlocked.has(page.id));
+  if (state.journal?.entries?.length) unlocked.add("codex");
+  return pages.filter((page) => unlocked.has(page.id)).map((page) => page.id === "codex"
+    ? { ...page, unreadCount: getUnreadJournalCount(state) } : page);
 }

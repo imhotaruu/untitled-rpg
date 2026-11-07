@@ -3,6 +3,7 @@ import { conversations } from "../data/conversations";
 import { villagePeople } from "../data/relationships";
 import { performAction } from "./actionSystem";
 import { getPrependedStoryCount } from "../utils/storyHistory";
+import { recordConversationNotes } from "./journalSystem";
 
 function selectPassages(before, after, actionId) {
   const firstUse = !before.progress.actionCounts[actionId];
@@ -70,5 +71,8 @@ export function getPendingConversation(state) {
 export function finishConversation(state, token) {
   const pending = normalizeConversation(state.conversation, state);
   if (!pending || pending.token !== token) return state;
-  return { ...state, conversation: null, storyLog: [...pending.storyEntries, ...state.storyLog].slice(0, 50) };
+  const next = { ...state, journal: structuredClone(state.journal || { entries: [] }),
+    conversation: null, storyLog: [...pending.storyEntries, ...state.storyLog].slice(0, 50) };
+  recordConversationNotes(next, pending.passageIds);
+  return next;
 }

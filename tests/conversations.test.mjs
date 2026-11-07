@@ -52,7 +52,9 @@ test("Garron's first lesson has named speakers and preserves the original action
   const dialogue = getPendingConversation(state);
   assert.equal(dialogue.person.role, "Your father");
   assert.deepEqual(new Set(dialogue.beats.map((beat) => beat.speaker)), new Set(["Narration", "Garron", "Aster"]));
-  assert.deepEqual(finish(state), original);
+  const finished = finish(state);
+  assert.deepEqual({ ...finished, journal: original.journal }, original, "dialogue only adds a journal note to the settled action");
+  assert.ok(finished.journal.entries.some((entry) => entry.id === "note:garron_footing"));
 });
 
 test("repeated action and completion inputs cannot repeat costs or rewards", () => {
@@ -113,7 +115,7 @@ test("Rowan's introduction, favor, acceptance, and completion keep costs and que
     const pending = open(state, id);
     assert.equal(getPendingConversation(pending).person.name, "Rowan");
     state = finish(pending);
-    assert.deepEqual(state, original);
+    assert.deepEqual({ ...state, journal: original.journal }, original, "journal notes do not change action outcomes");
   }
   assert.equal(state.resources.wood.amount, 4);
   assert.equal(state.resources.cloth.amount, 1);

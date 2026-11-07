@@ -31,6 +31,7 @@ export function createGameState() {
     equipment: clone(starterEquipment),
     combat: null,
     conversation: null,
+    journal: { entries: [] },
     crafting: normalizeCrafting(null),
     exploration: { pending: null, sequence: 0, resolved: 0, cooldown: 0, discovered: [] },
     gatheringMastery: normalizeGatheringMastery(null),

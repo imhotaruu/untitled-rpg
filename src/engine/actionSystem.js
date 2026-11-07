@@ -1,4 +1,5 @@
 import { storyEvents } from "../data/storyEvents";
+import { recordResourceDiscoveries } from "./journalSystem";
 import { actions } from "../data/actions";
 import { beginExplorationEncounter } from "./explorationSystem";
 import { getQuestStatus } from "./questSystem";
@@ -456,6 +457,7 @@ export function performAction(currentState, action, options = {}) {
   // Current mastery determines this payout; a new level benefits the next gather.
   const { rewards: resourceRewards, criticalResources } = resolveGatheringHarvest(nextState, action, options.criticalRolls);
   addResources(nextState.resources, resourceRewards);
+  recordResourceDiscoveries(nextState, resourceRewards, "action", action.id);
   const gatheringMessages = getGatheringResourceIds(action).map((id) =>
     createLogEntry("resource", `${criticalResources.includes(id) ? "Critical gather! " : ""}Gathered ${resourceRewards[id]} ${nextState.resources[id]?.label || id}${criticalResources.includes(id) ? " (×2 yield)" : ""}.`));
   const masteryMessages = advanceGatheringMastery(nextState, action);

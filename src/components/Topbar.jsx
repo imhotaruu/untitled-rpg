@@ -65,8 +65,11 @@ function NavigationButton({ page, active, isNew, reducedMotion, onReveal, onChan
     return () => clearTimeout(timer);
   }, [animate]);
   return <button type="button" className={active ? "nav-btn active" : "nav-btn"}
+    aria-label={page.unreadCount ? `${page.label}, ${page.unreadCount} unread ${page.unreadCount === 1 ? "note" : "notes"}` : undefined}
+    title={page.unreadCount ? "New notes recorded in the Codex" : undefined}
     aria-current={active ? "page" : undefined} data-unlocking={animate && !reducedMotion}
     onAnimationEnd={() => setAnimate(false)} onClick={() => onChangePage(page.id)}>
     {page.label}
+    {page.unreadCount > 0 && <span className="codex-unread-marker" aria-hidden="true">!</span>}
   </button>;
 }

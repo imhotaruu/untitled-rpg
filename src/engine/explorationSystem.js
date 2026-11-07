@@ -1,5 +1,6 @@
 import { explorationActionIds, explorationEncounters, explorationEncounterRates } from "../data/explorationEncounters";
 import { addResources } from "./resourceSystem";
+import { recordResourceDiscoveries } from "./journalSystem";
 
 const count = (value) => Number.isSafeInteger(value) && value >= 0 ? value : 0;
 const definitionFor = (id) => explorationEncounters.find((entry) => entry.id === id);
@@ -51,6 +52,7 @@ export function resolveExplorationEncounter(state, token, choiceId) {
   if (!choice) return state;
   const next = structuredClone(state);
   addResources(next.resources, choice.rewards);
+  recordResourceDiscoveries(next, choice.rewards, "encounter", encounter.id);
   next.exploration.pending = null;
   next.exploration.resolved += 1;
   next.exploration.cooldown = explorationEncounterRates.quietExplorations;

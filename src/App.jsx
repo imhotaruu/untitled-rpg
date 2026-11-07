@@ -50,6 +50,8 @@ import CharacterPage from "./components/CharacterPage";
 import RelationshipsPage from "./components/RelationshipsPage";
 import CraftingPage from "./components/CraftingPage";
 import QuestsPage from "./components/QuestsPage";
+import CodexPage from "./components/CodexPage";
+import { markJournalEntryRead } from "./engine/journalSystem";
 import QuickOverviewSidebar from "./components/QuickOverviewSidebar";
 import SaveSlotModal from "./components/SaveSlotModal";
 import BattleConfirmModal from "./components/BattleConfirmModal";
@@ -116,6 +118,10 @@ function App() {
       return { ...current, itemFeedback: null };
     });
   }, []);
+
+  const handleJournalRead = useCallback((id) => {
+    setGameState((current) => markJournalEntryRead(current, id));
+  }, [setGameState]);
 
   const [activeModal, setActiveModal] = useState(null);
   const [saveSlots, setSaveSlots] = useState(() => getSaveSlotSummaries());
@@ -478,7 +484,7 @@ function App() {
 
       <main
         className={
-          ["relationships", "crafting", "quests", "story"].includes(activePage)
+          ["relationships", "crafting", "quests", "story", "codex"].includes(activePage)
             ? "game-layout full-page-layout"
             : activePage !== "main"
             ? "game-layout character-layout"
@@ -513,6 +519,8 @@ function App() {
           <CraftingPage gameState={gameState} onCraft={handleCraft} onOpenItems={() => { setCharacterTab("items"); handleChangePage("character"); }} />
         ) : activePage === "quests" ? (
           <QuestsPage gameState={gameState} onChangePage={handleChangePage} />
+        ) : activePage === "codex" ? (
+          <CodexPage key={`journal-${storyReaderSession}`} gameState={gameState} onRead={handleJournalRead} />
         ) : (
           <CharacterPage
             player={player}

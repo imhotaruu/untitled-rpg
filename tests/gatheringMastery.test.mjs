@@ -217,8 +217,8 @@ test("save/load retains partial XP and current level without restoring notificat
   before.gatheringMastery.xp.herbs = 147;
   const state = performAction(before, action("gather_wood"));
   saveGameToSlot(1, state);
-  assert.equal(CURRENT_SAVE_VERSION, 16);
-  assert.equal(JSON.parse(storage.get("new-untitled-game-save-slot-1")).version, 16);
+  assert.equal(CURRENT_SAVE_VERSION, 17);
+  assert.equal(JSON.parse(storage.get("new-untitled-game-save-slot-1")).version, 17);
   const loaded = loadGameFromSlot(1);
   assert.deepEqual(loaded.gatheringMastery, { levels: { herbs: 2, wood: 0 }, xp: { herbs: 147, wood: 1 } });
   assert.equal(Object.hasOwn(loaded, "itemFeedback"), false);

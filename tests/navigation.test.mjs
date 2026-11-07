@@ -24,7 +24,7 @@ test("either Garron's lesson or a visit to Elira introduces Relationships", () =
     state.player.area = area;
     const pending = act(state, action);
     assert.deepEqual(ids(pending), [...initial, "relationships"]);
-    assert.deepEqual(ids(finish(pending)), [...initial, "relationships"]);
+    assert.deepEqual(ids(finish(pending)), [...initial, "relationships", "codex"]);
   }
 });
 
@@ -34,12 +34,12 @@ test("Quests appears when Rowan offers his lesson and Crafting when it is accept
   state = finish(act(state, "train_with_garron"));
   state.player.area = "village_square";
   state = finish(act(state, "meet_rowan"));
-  assert.deepEqual(ids(state), [...initial, "relationships"]);
+  assert.deepEqual(ids(state), [...initial, "relationships", "codex"]);
   state.resources.wood.amount = 6;
   state = finish(act(state, "bring_rowan_wood"));
-  assert.deepEqual(ids(state), [...initial, "relationships", "quests"]);
+  assert.deepEqual(ids(state), [...initial, "relationships", "quests", "codex"]);
   state = finish(act(state, "begin_rowan_crafting"));
-  assert.deepEqual(ids(state), [...initial, "relationships", "quests", "crafting"]);
+  assert.deepEqual(ids(state), [...initial, "relationships", "quests", "crafting", "codex"]);
   assert.deepEqual(ids(migrateSaveState(state)), ids(state));
 });
 
