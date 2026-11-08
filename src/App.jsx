@@ -512,7 +512,8 @@ function App() {
 
           </>
         ) : activePage === "story" ? (
-          <StoryPage onReplay={() => { dismissItemFeedback(); setReplayJourney(createNewJourney()); }} />
+          <StoryPage key={`story-${storyReaderSession}`} gameState={gameState} reducedMotion={reducedMotion}
+            onReplay={() => { dismissItemFeedback(); setReplayJourney(createNewJourney()); }} />
         ) : activePage === "relationships" ? (
           <RelationshipsPage gameState={gameState} />
         ) : activePage === "crafting" ? (

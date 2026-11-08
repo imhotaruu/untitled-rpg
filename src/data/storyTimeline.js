@@ -1,0 +1,35 @@
+import { chapterOne, chapterOpening, prologueTitle } from "./prologue";
+
+// Authored reading order, not a claim about the order a player took actions.
+// Only revealed entries reach the view; there are no hidden-node placeholders.
+export const storyTimeline = [
+  { id: "prologue", chapter: "prologue", title: prologueTitle, label: "Prologue", place: "The Veil", symbol: "✦",
+    text: "Stand with Astraea, Goddess of Stars, and the Divine Authorities in their struggle against Chaos. Return to the opening tale through the prologue replay.",
+    replay: true },
+  { id: "chapter_one_opening", chapter: chapterOne.id, title: chapterOne.title, label: "The Beginning", place: "Stonefield House", symbol: "⌂",
+    text: chapterOpening },
+  { id: "garron_training", chapter: chapterOne.id, title: "Finding Your Footing", label: "Garron's lesson", place: "Stonefield House", symbol: "◇",
+    actionId: "train_with_garron", noteId: "garron_footing", passageId: "garron_training",
+    text: "Garron walked you through the basics and placed a wooden training sword in your hands. A steady stance came before a strong swing. He pointed you toward Rowan at the square and Elira at the healer's hut; home would be there when you needed to rest." },
+  { id: "elira_visit", chapter: chapterOne.id, title: "A Place to Be Cared For", label: "A moment with Elira", place: "Healer's Hut", symbol: "✧",
+    actionId: "visit_healer", noteId: "elira_care", passageId: "elira_visit",
+    text: "Among the herbs and remedies, Elira made room for you beside her. Her work keeps her busy, but you do not need an excuse to visit. She can tend to your wounds here, while resting at home restores your stamina." },
+  { id: "meet_rowan", chapter: chapterOne.id, title: "The Hands Behind the Blade", label: "Meeting Rowan", place: "Village Square", symbol: "◇",
+    actionId: "meet_rowan", noteId: "rowan_wood", passageId: "rowan_meeting",
+    text: "Rowan recognized the practice sword they had made for Garron. Amid the wood shavings, a new connection began. They showed you the way to the forest edge and mentioned sound fallen wood along a trail farther in." },
+  { id: "first_visit_forest_edge", chapter: chapterOne.id, title: "Beyond the Village", label: "First steps into the forest", place: "Forest Edge", symbol: "✧",
+    storyEventId: "first_visit_forest_edge", visitedAreaId: "forest_edge",
+    text: "For the first time, you stood at the edge of the forest. The village felt close behind you, but the path ahead felt much larger than it should." },
+  { id: "forest_trail", chapter: chapterOne.id, title: "A Path Through the Trees", label: "Discovering the trail", place: "Forest Trail", symbol: "✧",
+    discoveredAreaId: "forest_trail",
+    text: "A route into the woods became known to you. Beyond the forest edge, a narrow trail winds between the trees, where the air feels cooler and the village begins to feel distant." },
+  { id: "basic_guard", chapter: chapterOne.id, title: "A Steadier Stance", label: "Learning Basic Guard", place: "Stonefield House", symbol: "◇",
+    ruleId: "progress_milestone_basic_guard", noteId: "garron_guard", passageId: "garron_guard",
+    text: "Practice gave your stance a steadiness Garron could recognize. You learned the basics of guarding: keep your feet beneath you and let your guard do its work." },
+  { id: "bring_rowan_wood", chapter: chapterOne.id, title: "A Helping Hand", label: "Rowan's wood favor", place: "Village Square", symbol: "◇",
+    actionId: "bring_rowan_wood", noteId: "rowan_grain", passageId: "rowan_wood",
+    text: "You brought Rowan a bundle of sound wood. They made room beside the workbench and showed you how to follow the grain. You left with five coins and the warmth of a farewell that expected your return." },
+  { id: "rowan_first_craft", chapter: chapterOne.id, title: "A Shape of Your Own", label: "The crafting lesson", place: "Village Square", symbol: "◇",
+    actionId: "complete_rowan_crafting", passageId: "rowan_finished",
+    text: "You made a Handmade Training Sword and brought it to Rowan. They tested the grip, offered five coins for seeing the lesson through, and handed the sword back. The blade was yours to keep, and the work was your own." },
+];

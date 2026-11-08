@@ -105,7 +105,7 @@ Working branch: `codex/feature-000037-codex-journal`, based on the fresh `imhota
 
 Validation: build, lint, and all 170 tests pass. Server-render checks cover empty, discovered, completed/pending conversation, and older-save states. The user accepted the final book layout and authorized commit/push on 2026-11-08. Individual manual checklist items are not all separately confirmed. See `docs/qa/feature-000037-codex-journal.md`.
 
-## In progress: Feature 38 — Location unlocks
+## Completed: Feature 38 — Location unlocks
 
 The user authorized starting this feature after accepting Feature 37. Working branch: `codex/feature-000038-location-unlocks`, based on `f04cd81`.
 
@@ -115,7 +115,30 @@ The user also authorized a small combat presentation addition: lowered party car
 
 Area definitions support action, conversation-note, story-event, quest-status, and combined requirements for hearing about a place, discovering it, and separately gaining access. Save schema 18 retains established routes and heard-about knowledge; migration preserves old flags, visits, current locations, and existing progress without replaying discovery logs. The user confirmed that the feature is working flawlessly and authorized commit/push on 2026-11-08. All 189 tests, lint, and build pass. See `docs/qa/feature-000038-location-unlocks.md`.
 
-The draggable, zoomable Story timeline remains a later feature, with its content and progression presentation to be scoped then. Achievements may also be a separate future feature.
+Feature 38 was accepted, committed, and pushed as `668f32f`.
+
+## Completed: Feature 39 — Story timeline
+
+The user selected the Story timeline on 2026-11-08. Working branch: `codex/feature-000039-story-timeline`, based on Feature 38 (`668f32f`).
+
+Outcome: players can browse the important revealed moments of their journey and see their current chapter.
+
+- Replace the static Story page with a draggable, zoomable timeline, selected-moment recaps, zoom buttons, and reset-view control.
+- Group Prologue and Chapter 1 moments in authored story order. Retain the existing Chapter 1 · Act 1 metadata; do not invent later acts or chronology missing from older saves.
+- Curate existing opening, family, Rowan, and exploration milestones. Hide unrevealed moments completely. Conversation milestones appear only after the relevant dialogue finishes.
+- Derive visibility from durable progress, preserving older saves and independence from capped logs. Browsing is read-only; keep isolated prologue replay without claiming a skipped prologue was completed.
+- Preserve Back to Main, Log, Settings, and save controls. Support keyboard navigation, narrow screens, and reduced motion.
+- No new story events, rewards, achievements, chapter gates, NPC-scene replay, artwork, or combat content.
+
+After Feature 39 is reviewed and accepted, pause before Feature 40. Prepare the current story as copy-and-paste text for the user's Google Docs writing pass; allow time for their revisions before scoping the next feature. This is a separate follow-up, not authorization to start Feature 40 or publish edits to Google Docs.
+
+Implementation: ten authored moments cover the replay entry, Chapter 1 opening, Garron's first lesson, Elira's first visit, meeting Rowan, first visiting Forest Edge, discovering Forest Trail, learning Basic Guard, the wood favor, and completing the crafting lesson. Only known moments appear. The chapter opening is selected initially; the current chapter remains separately identified when browsing other moments. The view supports mouse/pen dragging, native touch scrolling, 75–150% zoom, reset to the chapter opening, Previous/Next, and arrow/Home/End navigation. Recaps use existing content; no timestamps are invented. Save schema stays at 18 because the timeline is derived from existing records. Selection and zoom reset when loading another save.
+
+Status: the user accepted the final presentation and authorized commit/push on 2026-11-08. All 197 automated tests, lint, and the production build pass. Individual manual checklist items were not separately confirmed. The user will handle manual browser checks; keep future verification focused on code and automated checks unless asked otherwise. QA: `docs/qa/feature-000039-story-timeline.md`.
+
+User-reviewed polish: capitalize The Beginning and remove the redundant top-right You are here block. The timeline's Current chapter marker remains. Extend the right recap panel to the top of the Story page alongside the heading; narrow screens retain the stacked layout.
+
+Achievements remain a separate possible future feature.
 
 ## Later ideas
 
